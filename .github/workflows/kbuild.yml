@@ -63,7 +63,7 @@ jobs:
         id: get-commit-metadata
         working-directory: bpf
         run: |
-          bash .github/scripts/get-commit-metadata.sh
+          bash ${{ env.REPO_ROOT }}/.github/scripts/get-commit-metadata.sh
       - name: Pull recent KBUILD_OUTPUT contents
         uses: actions/cache@v4
         with:
