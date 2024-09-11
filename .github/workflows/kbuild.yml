@@ -55,6 +55,10 @@ jobs:
         with:
           repository: kernel-patches/bpf
           fetch-depth: 1
+      # second checkout will overwrite .github/ and other files
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository }}
       - name: Get commit meta-data
         id: get-commit-metadata
         run: |
