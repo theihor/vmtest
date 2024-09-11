@@ -28,7 +28,7 @@ on:
         required: true
         type: string
         description: The version of LLVM used to build selftest.... for llvm toolchain, this should match the one from toolchain_full, for gcc it is an arbritrary version we decide to build selftests against.
-        default: 17
+        default: '17'
       kernel:
         required: true
         type: string
@@ -38,7 +38,7 @@ on:
         required: true
         type: boolean
         description: Whether to download the linux sources into the working directory.
-        default: false
+        default: true
       release:
         required: false
         type: boolean
@@ -60,7 +60,7 @@ jobs:
         # We fetch an actual bit of history here to facilitate incremental
         # builds (which may check out some earlier upstream change).
         with:
-          fetch-depth: 50
+          fetch-depth: 1
       - if: ${{ inputs.download_sources }}
         name: Download bpf-next tree
         uses: libbpf/ci/get-linux-source@main
