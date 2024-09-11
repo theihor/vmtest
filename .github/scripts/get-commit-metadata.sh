@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -eux
+
 branch="${GITHUB_BASE_REF}"
 
 if [ "${GITHUB_EVENT_NAME}" = 'push' ] || [ "${GITHUB_EVENT_NAME}" = 'workflow_dispatch' ]; then
