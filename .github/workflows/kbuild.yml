@@ -53,14 +53,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          repository: kernel-patches/bpf
-          fetch-depth: 1
-      # second checkout will overwrite .github/ and other files
+          repository: ${{ github.repository }}
       - uses: actions/checkout@v4
         with:
-          repository: ${{ github.repository }}
+          repository: kernel-patches/bpf
+          fetch-depth: 1
+          path: bpf
       - name: Get commit meta-data
         id: get-commit-metadata
+        working-directory: bpf
         run: |
           bash .github/scripts/get-commit-metadata.sh
       - name: Pull recent KBUILD_OUTPUT contents
@@ -73,6 +74,7 @@ jobs:
             kbuild-output-${{ inputs.arch }}-${{ inputs.toolchain_full }}-${{ steps.get-commit-metadata.outputs.branch }}-
             kbuild-output-${{ inputs.arch }}-${{ inputs.toolchain_full }}-
       - name: Prepare incremental build
+        working-directory: bpf
         shell: bash
         run: |
           bash .github/scripts/prepare-incremental-builds.sh ${{ steps.get-commit-metadata.outputs.commit }}
